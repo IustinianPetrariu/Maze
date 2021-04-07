@@ -1,0 +1,27 @@
+.root{
+    -fx-background-color: #254E70;
+}
+
+*{
+    -fx-color: #37718E;
+}
+
+
+Label{
+    -fx-font-size: 20px;
+    -fx-alignment: center;
+    -fx-text-fill: #8EE3EF;
+    -fx-color: #37718E;
+}
+
+#title{
+    -fx-font-size: 50px;
+}
+
+Button{
+    -fx-border-color: rgb(49, 89, 23);
+    -fx-border-radius: 5;
+    -fx-padding: 3 6 6 6;
+    -fx-font-size: 17px;
+}
+

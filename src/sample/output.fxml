@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.canvas.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Canvas fx:id="canvas" height="424.0" layoutX="62.0" layoutY="54.0" width="674.0" />
+      <Button layoutX="129.0" layoutY="527.0" mnemonicParsing="false" text="Save" />
+      <Button layoutX="561.0" layoutY="527.0" mnemonicParsing="false" text="Exit" />
+   </children>
+</Pane>
