@@ -41,8 +41,8 @@ public class Cell {
             neighbors.add(cells[i][j - 1]);
         if (neighbors.size() > 0) {
             int randomIndex = (int) (Math.random() * 100) % neighbors.size();
-            System.out.print(randomIndex + " " + neighbors.size());
-            System.out.println();
+           // System.out.print(randomIndex + " " + neighbors.size());
+           // System.out.println();
 
             return neighbors.get(randomIndex);
         } else return null;

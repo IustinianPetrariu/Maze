@@ -25,7 +25,7 @@ public class MazeController {
         this.numberOfRows = numberOfRows;
         this.numberOfColumns = numberOfColumns;
         this.cells = new Cell[numberOfRows][numberOfColumns];
-        canvas = (Canvas) scene.lookup("#canvas");
+        canvas = (Canvas) scene.lookup("/Pane/children/Canvas");
         graphicsContext = canvas.getGraphicsContext2D();
     }
 
@@ -70,12 +70,17 @@ public class MazeController {
     }
 
     public void initializeCells() {
+
         double xOffset = canvas.getWidth() / numberOfColumns;
         double yOffset = canvas.getHeight() / numberOfRows;
 
         Cell.width = xOffset;
         Cell.height = yOffset;
         Cell.graphicsContext = graphicsContext;
+
+       // System.out.println(graphicsContext);
+      // System.out.println(scene);
+      // System.out.println(canvas);
 
         for (int i = 0; i < numberOfRows; i++) {
             for (int j = 0; j < numberOfColumns; j++) {
