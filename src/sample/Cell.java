@@ -25,10 +25,10 @@ public class Cell {
         double starty = this.i * height ;
         double startx = this.j * width ;
 
-        System.out.println(startx);
-        System.out.println(starty);
-        System.out.println(width);
-        System.out.println(height);
+//        System.out.println(startx);
+//        System.out.println(starty);
+//        System.out.println(width);
+//        System.out.println(height);
 
         // graphicsContext.setFill(Color.WHITE);
         graphicsContext.setStroke(Color.WHITE);

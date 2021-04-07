@@ -31,34 +31,33 @@ public class MazeController {
 
     public void setBackgroundColor() {
         graphicsContext.setFill(Color.BLACK);
-        graphicsContext.fillRect(0,0,canvas.getWidth(), canvas.getHeight());
+        graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
     }
 
 
     public void initializeCells() {
-        double xOffset = canvas.getWidth()/numberOfColumns;
-        double yOffset = canvas.getHeight()/numberOfRows;
+        double xOffset = canvas.getWidth() / numberOfColumns;
+        double yOffset = canvas.getHeight() / numberOfRows;
 
         Cell.width = xOffset;
         Cell.height = yOffset;
         Cell.graphicsContext = graphicsContext;
 
-        for(int i=0;i<numberOfRows;i++) {
-            for(int j=0;j<numberOfColumns;j++) {
-                cells[i][j] = new Cell(i,j);
+        for (int i = 0; i < numberOfRows; i++) {
+            for (int j = 0; j < numberOfColumns; j++) {
+                cells[i][j] = new Cell(i, j);
             }
         }
     }
 
     public void drawCells() {
-        for(int i=0;i<numberOfRows;i++) {
-            for(int j=0;j<numberOfColumns;j++) {
+        for (int i = 0; i < numberOfRows; i++) {
+            for (int j = 0; j < numberOfColumns; j++) {
                 cells[i][j].show();
                 try {
-//                    TimeUnit.SECONDS.sleep(1);
+                    TimeUnit.SECONDS.sleep(1);
                     TimeUnit.MILLISECONDS.sleep(500);
-                }
-                catch (InterruptedException e) {
+                } catch (InterruptedException e) {
                     System.out.println("Asd");
                 }
 
@@ -66,4 +65,5 @@ public class MazeController {
         }
     }
 }
+
 
