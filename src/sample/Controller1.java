@@ -16,7 +16,6 @@ public class Controller1 {
 
     public void onMouseClicked(MouseEvent mouseEvent) throws IOException {
         Pane root = FXMLLoader.load(getClass().getResource("window2.fxml"));
-        root.getStylesheets().add(Main.class.getResource("style.css").toExternalForm());
 
         rootPane.getChildren().setAll(root);
     }
