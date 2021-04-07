@@ -5,6 +5,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 public class MazeController {
@@ -16,13 +18,14 @@ public class MazeController {
     private Canvas canvas;
 
     private Cell[][] cells;
+    private Timer timer;
 
     public MazeController(Scene scene, int numberOfRows, int numberOfColumns) {
         this.scene = scene;
         this.numberOfRows = numberOfRows;
         this.numberOfColumns = numberOfColumns;
         this.cells = new Cell[numberOfRows][numberOfColumns];
-
+        this.timer = new Timer();
 
         canvas = (Canvas) scene.lookup("#canvas");
 
@@ -53,15 +56,16 @@ public class MazeController {
     public void drawCells() {
         for(int i=0;i<numberOfRows;i++) {
             for(int j=0;j<numberOfColumns;j++) {
-                cells[i][j].show();
-                try {
-//                    TimeUnit.SECONDS.sleep(1);
-                    TimeUnit.MILLISECONDS.sleep(500);
-                }
-                catch (InterruptedException e) {
-                    System.out.println("Asd");
-                }
-
+                final int I = i;
+                final int J = j;
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        cells[I][J].show();
+                    }
+                };
+                timer.schedule(task, 0);
+                TimeUnit.SECONDS.sleep(1);
             }
         }
     }
