@@ -4,23 +4,16 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-
+import java.util.Stack;
 import java.util.concurrent.TimeUnit;
 
 public class MazeController {
     private Scene scene;
     private int numberOfRows;
     private int numberOfColumns;
-<<<<<<< Updated upstream
-    private Cell currentCell;
-=======
-<<<<<<< Updated upstream
-=======
     private Cell currentCell;
     private Color color;
     private long dinamicWait;
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 
     private GraphicsContext graphicsContext;
     private Canvas canvas;
@@ -42,13 +35,29 @@ public class MazeController {
         graphicsContext = canvas.getGraphicsContext2D();
     }
 
-    public void setBackgroundColor() {
-<<<<<<< Updated upstream
-        graphicsContext.setFill(Color.BLACK);
-        graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    public void removeWalls(Cell current, Cell next) {
+        if (current.j - next.j == -1) {
+            current.walls[1] = false;
+            next.walls[3] = false;
+        }
+        if (current.j - next.j == 1) {
+            current.walls[3] = false;
+            next.walls[1] = false;
+        }
+        if (current.i - next.i == -1) {
+            current.walls[2] = false;
+            next.walls[0] = false;
+        }
+        if (current.i - next.i == 1) {
+            current.walls[0] = false;
+            next.walls[2] = false;
+        }
     }
 
-=======
+    public void setBackgroundColor() {
+        graphicsContext.setFill(Color.BLACK);
+        graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
         if (color == Color.WHITE) {
             graphicsContext.setFill(Color.WHITE);
         }
@@ -90,8 +99,6 @@ public class MazeController {
             }
         }
     }
->>>>>>> Stashed changes
-
     public void initializeCells() {
         double xOffset = canvas.getWidth() / numberOfColumns;
         double yOffset = canvas.getHeight() / numberOfRows;
@@ -124,7 +131,12 @@ public class MazeController {
             for (int j = 0; j < numberOfColumns; j++) {
                 double starty = i * yOffset;
                 double startx = j * xOffset;
-                graphicsContext.setStroke(Color.WHITE);
+                if(color == Color.WHITE) {
+                    graphicsContext.setStroke(Color.BLACK);
+                }
+                else {
+                    graphicsContext.setStroke(Color.WHITE);
+                }
                 graphicsContext.strokeLine(startx, starty, startx + xOffset, starty);
                 graphicsContext.strokeLine(startx, starty, startx, starty + yOffset);
                 graphicsContext.strokeLine(startx, starty + yOffset, startx + xOffset, starty + yOffset);
@@ -132,19 +144,21 @@ public class MazeController {
             }
         }
         currentCell = cells[0][0];
-        currentCell.visited = true;
-        currentCell.show();
-        Cell next = currentCell.searchForNeighbor();
-        while(next != null)
-        {
-            next.visited = true ;
-            next.show();
-            next= next.searchForNeighbor();
+        Stack<Cell> stack = new Stack<>();
+        stack.push(currentCell);
+        while (stack.size() > 0) {
+            currentCell = stack.peek();
+            currentCell.visited = true;
+            Cell next = currentCell.searchForNeighbor(cells, numberOfRows, numberOfColumns);
+            if (next != null) {
+                removeWalls(currentCell, next);
+                next.drawHead();
+                stack.push(next);
+            } else stack.pop();
+            currentCell.show();
         }
 
     }
-
-<<<<<<< Updated upstream
     public void drawCells() {
         for (int i = 0; i < numberOfRows; i++) {
             for (int j = 0; j < numberOfColumns; j++) {
@@ -157,7 +171,8 @@ public class MazeController {
                 }
 
             }
-=======
+        }
+
         drawGrid();
 
         currentCell = cells[0][0];
@@ -173,7 +188,6 @@ public class MazeController {
                 stack.push(next);
             } else stack.pop();
             currentCell.show();
->>>>>>> Stashed changes
         }
     }
 }

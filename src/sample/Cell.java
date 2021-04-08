@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Cell {
 
@@ -17,11 +18,8 @@ public class Cell {
     public boolean visited = false;
     public List<Cell> neighbors;
     public static GraphicsContext graphicsContext;
-<<<<<<< Updated upstream
-=======
     public static Color color;
     public boolean alreadyDraw;
->>>>>>> Stashed changes
 
     public Cell(int i, int j) {
         this.i = i;
@@ -30,59 +28,26 @@ public class Cell {
         neighbors = new ArrayList<>();
     }
 
-    public Cell searchForNeighbor() {
-        if(neighbors.size() > 0)
-        {
-            int randomNeighbor = (int) ((Math.random() * 100) % neighbors.size() - 1);
-            neighbors.remove(randomNeighbor);
-            return neighbors.get(randomNeighbor);
+    public Cell searchForNeighbor(Cell[][] cells, int numberOfRows, int numberOfColumns) {
+        int i = this.i;
+        int j = this.j;
+        neighbors.clear();
+        if (i != 0 && !cells[i - 1][j].visited)
+            neighbors.add(cells[i - 1][j]);
+        if (j != numberOfColumns - 1 && !cells[i][j + 1].visited)
+            neighbors.add(cells[i][j + 1]);
+        if (i != numberOfRows - 1 && !cells[i + 1][j].visited)
+            neighbors.add(cells[i + 1][j]);
+        if (j != 0 && !cells[i][j - 1].visited)
+            neighbors.add(cells[i][j - 1]);
+        if (neighbors.size() > 0) {
+            int randomIndex = (int) (Math.random() * 100) % neighbors.size();
+            // System.out.print(randomIndex + " " + neighbors.size());
+            // System.out.println();
 
-        }
-        else return null;
-
+            return neighbors.get(randomIndex);
+        } else return null;
     }
-<<<<<<< Updated upstream
-
-
-    ///draw a cell
-    public void show() {
-        double starty = this.i * height;
-        double startx = this.j * width;
-
-        graphicsContext.setStroke(Color.WHITE);
-        if (walls[0])
-            graphicsContext.strokeLine(startx, starty, startx + width, starty);
-        if (walls[1])
-            graphicsContext.strokeLine(startx + width, starty, startx + width, starty + height);
-        if (walls[2])
-            graphicsContext.strokeLine(startx, starty + height, startx + width, starty + height);
-        if (walls[3])
-            graphicsContext.strokeLine(startx, starty, startx, starty + height);
-        if (this.visited) {
-            graphicsContext.setFill(Color.RED);
-            graphicsContext.fillRect(startx, starty, width, height);
-        }
-=======
-<<<<<<< Updated upstream
-    ///draw a cell 
-    public void show() 
-    {  
-        double starty = this.i * height ;
-        double startx = this.j * width ;
-
-        System.out.println(startx);
-        System.out.println(starty);
-        System.out.println(width);
-        System.out.println(height);
-
-        // graphicsContext.setFill(Color.WHITE);
-        graphicsContext.setStroke(Color.WHITE);
-        graphicsContext.strokeLine(startx, starty, startx + width, starty);
-        graphicsContext.strokeLine(startx, starty, startx, starty + height);
-        graphicsContext.strokeLine(startx,starty+height, startx+width, starty+height);
-        graphicsContext.strokeLine(startx + width, starty, startx + width, starty + height );
-         
-=======
 
     public void drawHead() {
         double starty = this.i * height;
@@ -134,8 +99,6 @@ public class Cell {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 
     }
 

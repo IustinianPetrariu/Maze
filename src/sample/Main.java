@@ -62,4 +62,3 @@ primaryStage.setTitle("Maze generator");
 }
 =======
  */
->>>>>>> Stashed changes
