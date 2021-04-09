@@ -1,4 +1,4 @@
-package sample;
+package sample.controllers;
 
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
@@ -6,88 +6,60 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import sample.mazegenerators.Cell;
+import sample.Main;
+import sample.mazegenerators.MazeGeneratorRunnable;
 
 import javax.imageio.ImageIO;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ControllerOutput implements Initializable {
+public class MazeWindowController implements Initializable {
 
     @FXML
     private Canvas canvas;
-
     @FXML
     private Pane pane;
+    @FXML
+    private Slider slider;
 
-    private MazeController maze;
+    private MazeGeneratorRunnable mazeGenerator;
 
-    private MazeController deserialize() {
-        MazeController object = null;
-        String filename = "file.ser";
-        // Deserialization
-        try
-        {
-            // Reading the object from a file
-            FileInputStream file = new FileInputStream(filename);
-            ObjectInputStream in = new ObjectInputStream(file);
-
-            // Method for deserialization of object
-            object = (MazeController) in.readObject();
-
-            in.close();
-            file.close();
-        }
-        catch(IOException ex)
-        {
-            System.out.println(ex.getMessage());
-        }
-        catch(ClassNotFoundException ex)
-        {
-            System.out.println("ClassNotFoundException is caught");
-        }
-
-        return object;
-    }
-
-    public void getMaze(MazeController maze) {
-        this.maze = maze;
+    public void setMaze(MazeGeneratorRunnable mazeGenerator) {
+        this.mazeGenerator = mazeGenerator;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-//        MazeController maze = deserialize();
         Platform.runLater(() -> {
-            System.out.println(maze);
-            maze.keepRunning = true;
+            MazeGeneratorRunnable.keepRunning = true;
             new Thread() {
                 public void run() {
-                    System.out.println("Thread" + this);
-                    maze.setBackgroundColor();
-                    maze.initializeCells();
+                    mazeGenerator.generateMaze();
                 }
             }.start();
-
             Stage thisStage = (Stage) ( pane.getScene().getWindow() );
+
+            Cell.delay = 220;
+
             thisStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent windowEvent) {
-                    maze.keepRunning = false;
+                    MazeGeneratorRunnable.keepRunning = false;
                     try {
-                        Parent root = FXMLLoader.load(getClass().getResource("window2.fxml"));
+                        Parent root = FXMLLoader.load(getClass().getResource("../SettingsWindow.fxml"));
                         root.getStylesheets().add(Main.class.getResource("style.css").toExternalForm());
                         Stage outputStage = new Stage();
 
@@ -103,8 +75,6 @@ public class ControllerOutput implements Initializable {
                 }
             });
         });
-
-
     }
 
     public void saveButtonClicked(MouseEvent mouseEvent) {
@@ -128,4 +98,8 @@ public class ControllerOutput implements Initializable {
         }
     }
 
+    public void onDragDetected(MouseEvent mouseEvent) {
+        Cell.delay = 221 - (int)slider.getValue();
+        System.out.println(Cell.delay);
+    }
 }
