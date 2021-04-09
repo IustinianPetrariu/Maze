@@ -4,11 +4,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class Cell {
+public class Cell implements Serializable {
 
     public int i;
     public int j;
@@ -17,8 +18,10 @@ public class Cell {
     public boolean[] walls;
     public boolean visited = false;
     public List<Cell> neighbors;
+
     public static GraphicsContext graphicsContext;
     public static Color color;
+    public static int numberOfCells;
     public boolean alreadyDraw;
 
     public Cell(int i, int j) {
@@ -95,7 +98,17 @@ public class Cell {
         }
 
         try {
-            TimeUnit.MILLISECONDS.sleep(200);
+            long time;
+            switch (numberOfCells) {
+                case 25:
+                    time = 200;
+                    break;
+                case 625:
+                    time = 25;
+                default:
+                    time = 100;
+            }
+            TimeUnit.MILLISECONDS.sleep(time);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

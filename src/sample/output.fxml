@@ -5,11 +5,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane fx:controller="sample.ControllerOutput" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="829.0" prefWidth="1129.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerOutput">
    <children>
-      <Canvas fx:id="canvas" height="424.0" layoutX="62.0" layoutY="54.0" width="674.0" />
-      <Button layoutX="129.0" layoutY="527.0" mnemonicParsing="false" text="Save" />
-      <Button layoutX="561.0" layoutY="527.0" mnemonicParsing="false" text="Exit" />
+      <Canvas fx:id="canvas" height="651.0" layoutX="62.0" layoutY="54.0" width="1009.0" />
+      <Button layoutX="457.0" layoutY="748.0" mnemonicParsing="false" onMouseClicked="#saveButtonClicked" prefHeight="52.0" prefWidth="188.0" text="Save" />
    </children>
 </Pane>

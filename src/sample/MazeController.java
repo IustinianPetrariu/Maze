@@ -4,10 +4,12 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+
+import java.io.Serializable;
 import java.util.Stack;
 import java.util.concurrent.TimeUnit;
 
-public class MazeController {
+public class MazeController implements Serializable {
     private Scene scene;
     private int numberOfRows;
     private int numberOfColumns;
@@ -34,6 +36,8 @@ public class MazeController {
 
         graphicsContext = canvas.getGraphicsContext2D();
     }
+
+
 
     public void removeWalls(Cell current, Cell next) {
         if (current.j - next.j == -1) {
@@ -100,6 +104,10 @@ public class MazeController {
         }
     }
     public void initializeCells() {
+        if(keepRunning == false) {
+            return;
+        }
+
         double xOffset = canvas.getWidth() / numberOfColumns;
         double yOffset = canvas.getHeight() / numberOfRows;
 
@@ -107,6 +115,7 @@ public class MazeController {
         Cell.height = yOffset;
         Cell.graphicsContext = graphicsContext;
         Cell.color = color;
+        Cell.numberOfCells = numberOfRows * numberOfColumns;
 
         for (int i = 0; i < numberOfRows; i++) {
             for (int j = 0; j < numberOfColumns; j++) {
@@ -146,7 +155,7 @@ public class MazeController {
         currentCell = cells[0][0];
         Stack<Cell> stack = new Stack<>();
         stack.push(currentCell);
-        while (stack.size() > 0) {
+        while (stack.size() > 0 && keepRunning) {
             currentCell = stack.peek();
             currentCell.visited = true;
             Cell next = currentCell.searchForNeighbor(cells, numberOfRows, numberOfColumns);
@@ -159,6 +168,8 @@ public class MazeController {
         }
 
     }
+
+
     public void drawCells() {
         for (int i = 0; i < numberOfRows; i++) {
             for (int j = 0; j < numberOfColumns; j++) {

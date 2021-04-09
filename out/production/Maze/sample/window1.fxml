@@ -18,12 +18,12 @@
          </font>
       </Label>
       <Label layoutX="73.0" layoutY="597.0" prefHeight="30.0" prefWidth="602.0" text="created by Iustin Petrariu and Burca Rafael" />
-      <Button layoutX="331.0" layoutY="225.0" mnemonicParsing="false" onMouseClicked="#onMouseClicked" prefHeight="59.0" prefWidth="131.0" text="GET STARTED" />
+      <Button layoutX="331.0" layoutY="225.0" mnemonicParsing="false" onAction="#action" prefHeight="59.0" prefWidth="131.0" text="GET STARTED" />
       <Label layoutX="352.0" layoutY="148.0" prefHeight="34.0" prefWidth="90.0" text="2D" textAlignment="CENTER">
          <effect>
             <Blend mode="LIGHTEN" />
          </effect>
       </Label>
-      <Button layoutX="331.0" layoutY="429.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="131.0" text="EXIT" />
+      <Button layoutX="331.0" layoutY="429.0" mnemonicParsing="false" onMouseClicked="#exitButtonClicked" prefHeight="59.0" prefWidth="131.0" text="EXIT" />
    </children>
 </Pane>
