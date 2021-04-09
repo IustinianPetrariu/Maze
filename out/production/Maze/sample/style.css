@@ -14,6 +14,11 @@ Label{
     -fx-color: #37718E;
 }
 
+RadioButton {
+    -fx-text-fill: #ffff11;
+    -fx-font-size: 20px;
+}
+
 #title{
     -fx-font-size: 50px;
 }
@@ -25,3 +30,6 @@ Button{
     -fx-font-size: 17px;
 }
 
+ChoiceBox .menu-item{
+    -fx-background-color: #37718E;
+}
