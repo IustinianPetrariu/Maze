@@ -50,13 +50,11 @@ public class KruskalGenerator extends MazeGeneratorRunnable implements MazeGener
                     graphicsContext.strokeLine(startX + Cell.width, startY, startX + Cell.width, startY + Cell.height);
 
                 }
-                try{
+                try {
                     Thread.sleep(Cell.delay);
-                }catch (InterruptedException e)
-                {
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
                 wall.first.visited = true;
                 wall.second.visited = true;
                 wall.first.show();

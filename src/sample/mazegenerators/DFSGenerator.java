@@ -34,7 +34,7 @@ public class DFSGenerator extends MazeGeneratorRunnable implements MazeGenerator
         while (stack.size() > 0 && keepRunning) {
             currentCell = stack.peek();
             currentCell.visited = true;
-            Cell next = currentCell.searchForNeighbor(cells, numberOfRows, numberOfColumns);
+            Cell next = currentCell.searchForNeighbor(cells);
             if (next != null) {
                 removeWalls(currentCell, next);
                 next.drawHead();

@@ -33,7 +33,20 @@ public class Cell {
         neighbors = new ArrayList<>();
     }
 
-    public Cell searchForNeighbor(Cell[][] cells, int numberOfRows, int numberOfColumns) {
+    public List<Cell> getNeighbors(Cell[][] cells) {
+        neighbors.clear();
+        if (i != 0 && !cells[i - 1][j].visited)
+            neighbors.add(cells[i - 1][j]);
+        if (j != numberOfColumns - 1 && !cells[i][j + 1].visited)
+            neighbors.add(cells[i][j + 1]);
+        if (i != numberOfRow - 1 && !cells[i + 1][j].visited)
+            neighbors.add(cells[i + 1][j]);
+        if (j != 0 && !cells[i][j - 1].visited)
+            neighbors.add(cells[i][j - 1]);
+        return neighbors;
+    }
+
+    public Cell searchForNeighbor(Cell[][] cells) {
         int i = this.i;
         int j = this.j;
 
@@ -43,7 +56,7 @@ public class Cell {
             neighbors.add(cells[i - 1][j]);
         if (j != numberOfColumns - 1 && !cells[i][j + 1].visited)
             neighbors.add(cells[i][j + 1]);
-        if (i != numberOfRows - 1 && !cells[i + 1][j].visited)
+        if (i != numberOfRow - 1 && !cells[i + 1][j].visited)
             neighbors.add(cells[i + 1][j]);
         if (j != 0 && !cells[i][j - 1].visited)
             neighbors.add(cells[i][j - 1]);
@@ -63,7 +76,14 @@ public class Cell {
         }
         graphicsContext.fillRect(startX, startY, width, height);
     }
+   public void show(Color color)
+   {
+       double startY = this.i * height;
+       double startX = this.j * width;
+       graphicsContext.setFill(color);
+       graphicsContext.fillRect(startX, startY, width, height);
 
+   }
     public void show() {
         double startY = this.i * height;
         double startX = this.j * width;
