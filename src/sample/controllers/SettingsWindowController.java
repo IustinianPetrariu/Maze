@@ -36,6 +36,7 @@ public class SettingsWindowController implements Initializable {
         KRUSKAL_IMPLEMENTATION,
         PRIM_IMPLEMENTATION
     };
+
     MazeGeneratorOption generatorOption = MazeGeneratorOption.DFS_IMPLEMENTATION;
 
     @Override

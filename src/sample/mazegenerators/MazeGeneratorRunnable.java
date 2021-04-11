@@ -32,8 +32,7 @@ public abstract class MazeGeneratorRunnable implements MazeGenerator {
 
         if (color == Color.WHITE) {
             graphicsContext.setFill(Color.WHITE);
-        }
-        else {
+        } else {
             graphicsContext.setFill(Color.BLACK);
         }
         graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -47,11 +46,10 @@ public abstract class MazeGeneratorRunnable implements MazeGenerator {
                 double startY = i * yOffset;
                 double startX = j * xOffset;
 
-                if(color == Color.WHITE) {
+                if (color == Color.WHITE) {
                     graphicsContext.setStroke(Color.BLACK);
 
-                }
-                else {
+                } else {
                     graphicsContext.setStroke(Color.WHITE);
                 }
 
@@ -60,11 +58,10 @@ public abstract class MazeGeneratorRunnable implements MazeGenerator {
                 graphicsContext.strokeLine(startX, startY + yOffset, startX + xOffset, startY + yOffset);
                 graphicsContext.strokeLine(startX + xOffset, startY, startX + xOffset, startY + yOffset);
 
-                if(color == Color.WHITE) {
+                if (color == Color.WHITE) {
                     graphicsContext.setStroke(Color.BLACK);
 
-                }
-                else {
+                } else {
                     graphicsContext.setStroke(Color.WHITE);
                 }
             }

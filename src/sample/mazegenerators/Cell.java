@@ -22,6 +22,8 @@ public class Cell {
     public static GraphicsContext graphicsContext;
     public static Color color;
     public static long delay;
+    public static int numberOfRow;
+    public static int numberOfColumns;
 
 
     public Cell(int i, int j) {
@@ -54,7 +56,11 @@ public class Cell {
     public void drawHead() {
         double startY = this.i * height;
         double startX = this.j * width;
-        graphicsContext.setFill(Color.YELLOW);
+        if (color == Color.YELLOW) {
+            graphicsContext.setFill(Color.RED);
+        } else {
+            graphicsContext.setFill(Color.YELLOW);
+        }
         graphicsContext.fillRect(startX, startY, width, height);
     }
 
@@ -67,10 +73,9 @@ public class Cell {
             graphicsContext.fillRect(startX, startY, width, height);
         }
 
-        if(color == Color.WHITE) {
+        if (color == Color.WHITE) {
             graphicsContext.setStroke(Color.BLACK);
-        }
-        else {
+        } else {
             graphicsContext.setStroke(Color.WHITE);
         }
 
@@ -87,14 +92,12 @@ public class Cell {
         if (walls[3])
             graphicsContext.strokeLine(startX, startY, startX, startY + height);
 
-        if(graphicsContext.getStroke() == Color.WHITE) {
+        if (graphicsContext.getStroke() == Color.WHITE) {
             graphicsContext.setStroke(Color.BLACK);
-        }
-        else {
+        } else {
             graphicsContext.setStroke(Color.WHITE);
         }
 
-        // TODO: changing speed of drawing
         try {
             TimeUnit.MILLISECONDS.sleep(Cell.delay);
         } catch (InterruptedException e) {

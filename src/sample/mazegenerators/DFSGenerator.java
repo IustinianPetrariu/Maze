@@ -24,7 +24,7 @@ public class DFSGenerator extends MazeGeneratorRunnable implements MazeGenerator
         int numberOfColumns = maze.getNumberOfColumns();
         Cell[][] cells = maze.getCells();
 
-        maze.initializeCells();
+        //maze.initializeCells();
 
         this.drawField(canvas, graphicsContext, color, numberOfRows, numberOfColumns);
 
