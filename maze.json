@@ -1,19 +1,7 @@
 {
-    "type"   : "Kruskal", 
-    "color"  : " red" ,
-    "rows"   : 21 ,
-    "column" : 31 , 
-    "pairs" : [
-
-
-
-
-    ]
-
-
-
-
-
-
-
+    "type"   : "DFS_IMPLEMENTATION",
+    "color"  : "#ffffff",
+    "rows"   : 25,
+    "columns": 25,
+    "seed"   : 100
 }

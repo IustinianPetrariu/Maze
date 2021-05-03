@@ -13,13 +13,13 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.json.simple.JSONObject;
-import sample.mazegenerators.Cell;
+import sample.mazegenerators.*;
 import sample.Main;
-import sample.mazegenerators.MazeGeneratorRunnable;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -38,7 +38,11 @@ public class MazeWindowController implements Initializable {
     private Slider slider;
 
     private MazeGeneratorRunnable mazeGenerator;
+    private int seed;
 
+    public void setSeed(int seed) {
+        this.seed = seed;
+    }
     public void setMaze(MazeGeneratorRunnable mazeGenerator) {
         this.mazeGenerator = mazeGenerator;
     }
@@ -47,11 +51,10 @@ public class MazeWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() -> {
             MazeGeneratorRunnable.keepRunning = true;
-            new Thread() {
-                public void run() {
-                    mazeGenerator.generateMaze();
-                }
-            }.start();
+            MazeGeneratorRunnable.seed = seed;
+            new Thread(() -> {
+                mazeGenerator.generateMaze();
+            }).start();
             Stage thisStage = (Stage) (pane.getScene().getWindow());
 
             Cell.delay = 220;
@@ -103,7 +106,7 @@ public class MazeWindowController implements Initializable {
         System.out.println(Cell.delay);
     }
 
-    public void ExportJson(MouseEvent mouseEvent) {
+    public void exportJson(MouseEvent mouseEvent) {
 
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().addAll(
@@ -113,21 +116,42 @@ public class MazeWindowController implements Initializable {
         File file = fc.showSaveDialog(null);
 
 
-        System.out.println(mazeGenerator.perechi);
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("pairs", mazeGenerator.perechi);
-        jsonObject.put("type","DFS");
+        jsonObject.put("type", getType(mazeGenerator));
+        jsonObject.put("color", toHexString(mazeGenerator.getMaze().getColor()));
+        jsonObject.put("rows", mazeGenerator.getMaze().getNumberOfRows());
+        jsonObject.put("columns", mazeGenerator.getMaze().getNumberOfColumns());
+        jsonObject.put("seed", seed);
 
         try {
             FileWriter fileSave = new FileWriter(file);
-            //We can write any JSONArray or JSONObject instance to the file
+
             fileSave.write(jsonObject.toJSONString());
             fileSave.flush();
 
         } catch (Exception exception) {
             exception.printStackTrace();
         }
+    }
 
-//        System.out.println("salut");
+    private static String toHexString(Color color) {
+        int r = ((int) Math.round(color.getRed()     * 255)) << 24;
+        int g = ((int) Math.round(color.getGreen()   * 255)) << 16;
+        int b = ((int) Math.round(color.getBlue()    * 255)) << 8;
+        int a = ((int) Math.round(color.getOpacity() * 255));
+        return String.format("#%08X", (r + g + b + a));
+    }
+
+    private Object getType(MazeGeneratorRunnable mazeGenerator) {
+        if (mazeGenerator instanceof DFSGenerator) {
+            return "DFS_GENERATOR";
+        }
+        else if (mazeGenerator instanceof KruskalGenerator) {
+            return "KRUSKAL_IMPLEMENTATION";
+        }
+        else if (mazeGenerator instanceof PrimGenerator) {
+            return "PRIM_IMPLEMENTATION";
+        }
+        return null;
     }
 }

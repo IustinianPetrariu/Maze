@@ -24,6 +24,7 @@ public class Cell {
     public static long delay;
     public static int numberOfRow;
     public static int numberOfColumns;
+    public static int seed;
 
 
     public Cell(int i, int j) {
@@ -61,7 +62,7 @@ public class Cell {
         if (j != 0 && !cells[i][j - 1].visited)
             neighbors.add(cells[i][j - 1]);
         if (neighbors.size() > 0) {
-            int randomIndex = (int) (Math.random() * 100) % neighbors.size();
+            int randomIndex = (int) (seed * 1000) % neighbors.size();
             return neighbors.get(randomIndex);
         } else return null;
     }
