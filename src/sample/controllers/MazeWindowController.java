@@ -16,12 +16,14 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import org.json.simple.JSONObject;
 import sample.mazegenerators.Cell;
 import sample.Main;
 import sample.mazegenerators.MazeGeneratorRunnable;
 
 import javax.imageio.ImageIO;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -42,7 +44,7 @@ public class MazeWindowController implements Initializable {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle){
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() -> {
             MazeGeneratorRunnable.keepRunning = true;
             new Thread() {
@@ -50,7 +52,7 @@ public class MazeWindowController implements Initializable {
                     mazeGenerator.generateMaze();
                 }
             }.start();
-            Stage thisStage = (Stage) ( pane.getScene().getWindow() );
+            Stage thisStage = (Stage) (pane.getScene().getWindow());
 
             Cell.delay = 220;
 
@@ -68,8 +70,7 @@ public class MazeWindowController implements Initializable {
                         outputStage.setScene(scene);
 
                         outputStage.show();
-                    }
-                    catch (IOException e) {
+                    } catch (IOException e) {
                         System.out.println(e.getMessage());
                     }
                 }
@@ -92,14 +93,41 @@ public class MazeWindowController implements Initializable {
         try {
             Image snapshot = canvas.snapshot(null, null);
             ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", file);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void onDragDetected(MouseEvent mouseEvent) {
-        Cell.delay = 221 - (int)slider.getValue();
+        Cell.delay = 221 - (int) slider.getValue();
         System.out.println(Cell.delay);
+    }
+
+    public void ExportJson(MouseEvent mouseEvent) {
+
+        FileChooser fc = new FileChooser();
+        fc.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Json Files", "*.json"),
+                new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+        fc.setInitialFileName("maze.json");
+        File file = fc.showSaveDialog(null);
+
+
+        System.out.println(mazeGenerator.perechi);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("pairs", mazeGenerator.perechi);
+        jsonObject.put("type","DFS");
+
+        try {
+            FileWriter fileSave = new FileWriter(file);
+            //We can write any JSONArray or JSONObject instance to the file
+            fileSave.write(jsonObject.toJSONString());
+            fileSave.flush();
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
+//        System.out.println("salut");
     }
 }

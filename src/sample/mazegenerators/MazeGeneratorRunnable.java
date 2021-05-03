@@ -3,9 +3,11 @@ package sample.mazegenerators;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import org.json.simple.JSONArray;
 
 public abstract class MazeGeneratorRunnable implements MazeGenerator {
     public static boolean keepRunning = true;
+    public JSONArray perechi ;
 
     public void removeWalls(Cell current, Cell next) {
         if (current.j - next.j == -1) {

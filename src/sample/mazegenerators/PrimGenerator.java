@@ -3,6 +3,8 @@ package sample.mazegenerators;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import javax.naming.NamingEnumeration;
 import java.awt.image.AreaAveragingScaleFilter;
@@ -27,6 +29,9 @@ public class PrimGenerator extends MazeGeneratorRunnable implements MazeGenerato
         int numberOfColumns = maze.getNumberOfColumns();
         Cell[][] cells = maze.getCells();
         System.out.println(maze.edges.size());
+        perechi = new JSONArray();
+        JSONObject pereche;
+
 
         //maze.initializeCells();
         this.drawField(canvas, graphicsContext, color, numberOfRows, numberOfColumns);
@@ -40,6 +45,9 @@ public class PrimGenerator extends MazeGeneratorRunnable implements MazeGenerato
         while (white.size() > 0 && keepRunning) {
             int randomIndex = (int) (Math.random() * 100) % white.size();
             Cell chosen = white.get(randomIndex);
+            pereche = new JSONObject();
+            pereche.put("first", chosen.i + "," + chosen.j);
+
             chosen.visited = true;
             // chosen.show(Color.WHITE);
 
@@ -53,6 +61,8 @@ public class PrimGenerator extends MazeGeneratorRunnable implements MazeGenerato
             Cell neighbor = chosen.searchForNeighbor(cells);
 
             if (neighbor != null) {
+                pereche.put("second", neighbor.i + "," + neighbor.j);
+                perechi.add(pereche);
                 neighbor.visited = true;
                 for (Cell neighborr : neighbor.getNeighbors(cells)) {
                     neighborr.show(Color.PINK);

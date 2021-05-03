@@ -3,6 +3,8 @@ package sample.mazegenerators;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 public class KruskalGenerator extends MazeGeneratorRunnable implements MazeGenerator {
     private Maze maze;
@@ -23,6 +25,8 @@ public class KruskalGenerator extends MazeGeneratorRunnable implements MazeGener
         int numberOfColumns = maze.getNumberOfColumns();
         Cell[][] cells = maze.getCells();
         System.out.println(maze.edges.size());
+        perechi = new JSONArray();
+        JSONObject pereche;
 
         //maze.initializeCells();
 
@@ -32,6 +36,10 @@ public class KruskalGenerator extends MazeGeneratorRunnable implements MazeGener
             int randomIndex = (int) (Math.random() * 1000) % maze.edges.size();
             System.out.println(randomIndex);
             Wall wall = maze.edges.get(randomIndex);
+            pereche = new JSONObject();
+            pereche.put("first", wall.first.i + "," + wall.first.j);
+            pereche.put("second", wall.second.i + "," + wall.second.j);
+            perechi.add(pereche);
             if (maze.findRoot(wall.first) != maze.findRoot(wall.second)) {
 
                 maze.union(wall.first, wall.second);
