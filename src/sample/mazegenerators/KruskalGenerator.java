@@ -6,6 +6,8 @@ import javafx.scene.paint.Color;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.util.Random;
+
 public class KruskalGenerator extends MazeGeneratorRunnable implements MazeGenerator {
     private Maze maze;
 
@@ -29,15 +31,13 @@ public class KruskalGenerator extends MazeGeneratorRunnable implements MazeGener
         int numberOfRows = maze.getNumberOfRows();
         int numberOfColumns = maze.getNumberOfColumns();
         Cell[][] cells = maze.getCells();
-        System.out.println(maze.edges.size());
 
         //maze.initializeCells();
 
         this.drawField(canvas, graphicsContext, color, numberOfRows, numberOfColumns);
 
         while (maze.edges.size() > 0 && keepRunning) {
-            int randomIndex = (int) (seed * 1000) % maze.edges.size();
-            System.out.println(randomIndex);
+            int randomIndex = Math.abs(MazeGeneratorRunnable.generator.nextInt()) % maze.edges.size();
             Wall wall = maze.edges.get(randomIndex);
             if (maze.findRoot(wall.first) != maze.findRoot(wall.second)) {
 

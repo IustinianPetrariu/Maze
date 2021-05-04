@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class MazeWindowController implements Initializable {
@@ -51,7 +52,7 @@ public class MazeWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() -> {
             MazeGeneratorRunnable.keepRunning = true;
-            MazeGeneratorRunnable.seed = seed;
+            MazeGeneratorRunnable.generator = new Random(seed);
             new Thread(() -> {
                 mazeGenerator.generateMaze();
             }).start();
@@ -119,9 +120,9 @@ public class MazeWindowController implements Initializable {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("type", getType(mazeGenerator));
         jsonObject.put("color", toHexString(mazeGenerator.getMaze().getColor()));
-        jsonObject.put("rows", mazeGenerator.getMaze().getNumberOfRows());
-        jsonObject.put("columns", mazeGenerator.getMaze().getNumberOfColumns());
-        jsonObject.put("seed", seed);
+        jsonObject.put("rows", String.valueOf(mazeGenerator.getMaze().getNumberOfRows()));
+        jsonObject.put("columns", String.valueOf(mazeGenerator.getMaze().getNumberOfColumns()));
+        jsonObject.put("seed", String.valueOf(seed));
 
         try {
             FileWriter fileSave = new FileWriter(file);
@@ -144,7 +145,7 @@ public class MazeWindowController implements Initializable {
 
     private Object getType(MazeGeneratorRunnable mazeGenerator) {
         if (mazeGenerator instanceof DFSGenerator) {
-            return "DFS_GENERATOR";
+            return "DFS_IMPLEMENTATION";
         }
         else if (mazeGenerator instanceof KruskalGenerator) {
             return "KRUSKAL_IMPLEMENTATION";

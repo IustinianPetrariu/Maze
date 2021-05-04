@@ -77,6 +77,7 @@ public class SettingsWindowController implements Initializable {
             MazeWindowController mazeWindowController = fxmlLoader.<MazeWindowController>getController();
             mazeWindowController.setMaze(mazeGenerator);
             mazeWindowController.setSeed(seed);
+
         } catch (Exception exception) {
             exception.printStackTrace();
         }
@@ -84,10 +85,14 @@ public class SettingsWindowController implements Initializable {
     }
 
     private MazeGeneratorOption fromStringToOption(String type) {
-        switch (type) {
-            case "DFS_IMPLEMENTATION"     -> {return MazeGeneratorOption.DFS_IMPLEMENTATION;}
-            case "KRUSKAL_IMPLEMENTATION" -> {return MazeGeneratorOption.KRUSKAL_IMPLEMENTATION;}
-            case "PRIM_IMPLEMENTATION"    -> {return MazeGeneratorOption.PRIM_IMPLEMENTATION;}
+        if (type.equals("DFS_IMPLEMENTATION")) {
+            return MazeGeneratorOption.DFS_IMPLEMENTATION;
+        }
+        else if (type.equals("KRUSKAL_IMPLEMENTATION")) {
+            return MazeGeneratorOption.KRUSKAL_IMPLEMENTATION;
+        }
+        else if (type.equals("PRIM_IMPLEMENTATION")) {
+            return MazeGeneratorOption.PRIM_IMPLEMENTATION;
         }
         return null;
     }

@@ -10,6 +10,7 @@ import javax.naming.NamingEnumeration;
 import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class PrimGenerator extends MazeGeneratorRunnable implements MazeGenerator {
     private Maze maze;
@@ -46,12 +47,11 @@ public class PrimGenerator extends MazeGeneratorRunnable implements MazeGenerato
 
         ///iterate through list
         while (white.size() > 0 && keepRunning) {
-            int randomIndex = (int) (seed * 100) % white.size();
+            int randomIndex = Math.abs(MazeGeneratorRunnable.generator.nextInt()) % white.size();
             Cell chosen = white.get(randomIndex);
 
             chosen.visited = true;
             for (Cell neighborr : chosen.getNeighbors(cells)) {
-                System.out.println("sunt aici");
                 neighborr.show(Color.PINK);
             }
 

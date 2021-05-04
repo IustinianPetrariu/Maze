@@ -8,7 +8,7 @@ import org.json.simple.JSONObject;
 
 import java.util.Stack;
 
-public class DFSGenerator extends MazeGeneratorRunnable implements MazeGenerator {
+public class DFSGenerator extends MazeGeneratorRunnable {
     private Maze maze;
 
     @Override
@@ -30,7 +30,6 @@ public class DFSGenerator extends MazeGeneratorRunnable implements MazeGenerator
         int numberOfRows = maze.getNumberOfRows();
         int numberOfColumns = maze.getNumberOfColumns();
         Cell[][] cells = maze.getCells();
-
         //maze.initializeCells();
 
         this.drawField(canvas, graphicsContext, color, numberOfRows, numberOfColumns);
