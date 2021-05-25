@@ -16,7 +16,7 @@
 
 >By default , the generations of the mazes will be animated, showing the current path being added to the maze at each step of the process. Also, *speed* slider can also be adjusted to increase or decrease the delay between steps in the animation. You can also choose the maze size for adjusting the size of the maze. Moreover, you cand select between three algorithms and also pick a color that you want. Finally, if you want to eport whis maze you can do this by clicking the *export* button and also you can *import* a generated maze. 
 > Here are some screenshots of the program running
-![alt text](\UIdesign.png)
+![alt text](UIdesign.png)
 
 
 ## Implementation detalis
