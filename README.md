@@ -19,6 +19,7 @@
 
 
 ![alt text](/UIdesign.png)
+![alt text](/UIdesign2.png)
 
 
 ## Implementation detalis
