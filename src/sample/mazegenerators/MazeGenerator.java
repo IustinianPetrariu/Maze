@@ -1,6 +1,7 @@
 package sample.mazegenerators;
 
 public interface MazeGenerator {
-    void getMaze(Maze maze);
+    void setMaze(Maze maze);
+    Maze getMaze();
     void generateMaze();
 }

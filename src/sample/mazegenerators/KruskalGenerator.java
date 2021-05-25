@@ -6,12 +6,19 @@ import javafx.scene.paint.Color;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.util.Random;
+
 public class KruskalGenerator extends MazeGeneratorRunnable implements MazeGenerator {
     private Maze maze;
 
     @Override
-    public void getMaze(Maze maze) {
+    public void setMaze(Maze maze) {
         this.maze = maze;
+    }
+
+    @Override
+    public Maze getMaze() {
+        return maze;
     }
 
     @Override
@@ -24,22 +31,14 @@ public class KruskalGenerator extends MazeGeneratorRunnable implements MazeGener
         int numberOfRows = maze.getNumberOfRows();
         int numberOfColumns = maze.getNumberOfColumns();
         Cell[][] cells = maze.getCells();
-        System.out.println(maze.edges.size());
-        perechi = new JSONArray();
-        JSONObject pereche;
 
         //maze.initializeCells();
 
         this.drawField(canvas, graphicsContext, color, numberOfRows, numberOfColumns);
 
         while (maze.edges.size() > 0 && keepRunning) {
-            int randomIndex = (int) (Math.random() * 1000) % maze.edges.size();
-            System.out.println(randomIndex);
+            int randomIndex = Math.abs(MazeGeneratorRunnable.generator.nextInt()) % maze.edges.size();
             Wall wall = maze.edges.get(randomIndex);
-            pereche = new JSONObject();
-            pereche.put("first", wall.first.i + "," + wall.first.j);
-            pereche.put("second", wall.second.i + "," + wall.second.j);
-            perechi.add(pereche);
             if (maze.findRoot(wall.first) != maze.findRoot(wall.second)) {
 
                 maze.union(wall.first, wall.second);

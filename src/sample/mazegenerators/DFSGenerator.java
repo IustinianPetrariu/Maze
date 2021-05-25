@@ -8,12 +8,17 @@ import org.json.simple.JSONObject;
 
 import java.util.Stack;
 
-public class DFSGenerator extends MazeGeneratorRunnable implements MazeGenerator {
+public class DFSGenerator extends MazeGeneratorRunnable {
     private Maze maze;
 
     @Override
-    public void getMaze(Maze maze) {
+    public void setMaze(Maze maze) {
         this.maze = maze;
+    }
+
+    @Override
+    public Maze getMaze() {
+        return maze;
     }
 
     @Override
@@ -25,10 +30,6 @@ public class DFSGenerator extends MazeGeneratorRunnable implements MazeGenerator
         int numberOfRows = maze.getNumberOfRows();
         int numberOfColumns = maze.getNumberOfColumns();
         Cell[][] cells = maze.getCells();
-        // open json filees
-        perechi = new JSONArray();
-        JSONObject pereche ;
-
         //maze.initializeCells();
 
         this.drawField(canvas, graphicsContext, color, numberOfRows, numberOfColumns);
@@ -41,13 +42,7 @@ public class DFSGenerator extends MazeGeneratorRunnable implements MazeGenerator
             currentCell.visited = true;
             Cell next = currentCell.searchForNeighbor(cells);
             if (next != null) {
-
                 removeWalls(currentCell, next);
-                pereche = new JSONObject();
-                pereche.put("first", currentCell.i + "," + currentCell.j);
-//                pereche = new JSONObject();
-                pereche.put("second", next.i + "," + next.j);
-                perechi.add(pereche);
                 next.drawHead();
                 stack.push(next);
             } else stack.pop();

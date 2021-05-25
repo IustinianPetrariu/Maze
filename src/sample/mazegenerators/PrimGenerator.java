@@ -10,13 +10,19 @@ import javax.naming.NamingEnumeration;
 import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class PrimGenerator extends MazeGeneratorRunnable implements MazeGenerator {
     private Maze maze;
 
     @Override
-    public void getMaze(Maze maze) {
+    public void setMaze(Maze maze) {
         this.maze = maze;
+    }
+
+    @Override
+    public Maze getMaze() {
+        return maze;
     }
 
     @Override
@@ -29,8 +35,6 @@ public class PrimGenerator extends MazeGeneratorRunnable implements MazeGenerato
         int numberOfColumns = maze.getNumberOfColumns();
         Cell[][] cells = maze.getCells();
         System.out.println(maze.edges.size());
-        perechi = new JSONArray();
-        JSONObject pereche;
 
 
         //maze.initializeCells();
@@ -43,26 +47,17 @@ public class PrimGenerator extends MazeGeneratorRunnable implements MazeGenerato
 
         ///iterate through list
         while (white.size() > 0 && keepRunning) {
-            int randomIndex = (int) (Math.random() * 100) % white.size();
+            int randomIndex = Math.abs(MazeGeneratorRunnable.generator.nextInt()) % white.size();
             Cell chosen = white.get(randomIndex);
-            pereche = new JSONObject();
-            pereche.put("first", chosen.i + "," + chosen.j);
 
             chosen.visited = true;
-            // chosen.show(Color.WHITE);
-
-            // white.addAll(cell.getNeighbors(cells));
             for (Cell neighborr : chosen.getNeighbors(cells)) {
-                System.out.println("sunt aici");
                 neighborr.show(Color.PINK);
             }
 
-            /// pick a random neighbor
             Cell neighbor = chosen.searchForNeighbor(cells);
 
             if (neighbor != null) {
-                pereche.put("second", neighbor.i + "," + neighbor.j);
-                perechi.add(pereche);
                 neighbor.visited = true;
                 for (Cell neighborr : neighbor.getNeighbors(cells)) {
                     neighborr.show(Color.PINK);

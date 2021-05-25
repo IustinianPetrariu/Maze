@@ -5,6 +5,7 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class Cell {
@@ -61,7 +62,7 @@ public class Cell {
         if (j != 0 && !cells[i][j - 1].visited)
             neighbors.add(cells[i][j - 1]);
         if (neighbors.size() > 0) {
-            int randomIndex = (int) (Math.random() * 100) % neighbors.size();
+            int randomIndex = Math.abs(MazeGeneratorRunnable.generator.nextInt()) % neighbors.size();
             return neighbors.get(randomIndex);
         } else return null;
     }

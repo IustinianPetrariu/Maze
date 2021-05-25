@@ -5,9 +5,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import org.json.simple.JSONArray;
 
+import java.util.Random;
+
 public abstract class MazeGeneratorRunnable implements MazeGenerator {
     public static boolean keepRunning = true;
-    public JSONArray perechi ;
+    public static Random generator;
 
     public void removeWalls(Cell current, Cell next) {
         if (current.j - next.j == -1) {

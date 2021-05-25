@@ -5,26 +5,30 @@
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="773.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.SettingsWindowController">
+<Pane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="456.0" prefWidth="643.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.SettingsWindowController">
    <children>
-      <Button layoutX="222.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#generateMazeMouseClick" text="Generate Maze" />
-      <Label layoutX="44.0" layoutY="47.0" text="Select algorithm:" />
-      <RadioButton layoutX="45.0" layoutY="100.0" mnemonicParsing="false" onAction="#dfsImplementationSelected" text="Recursive Implementation (DFS)">
+      <Button layoutX="27.0" layoutY="324.0" mnemonicParsing="false" onMouseClicked="#generateMazeMouseClick" prefHeight="49.0" prefWidth="190.0" text="Generate Maze" />
+      <Label layoutX="26.0" layoutY="98.0" text="Select algorithm:" />
+      <RadioButton layoutX="27.0" layoutY="151.0" mnemonicParsing="false" onAction="#dfsImplementationSelected" text="Recursive Implementation (DFS)">
          <toggleGroup>
             <ToggleGroup fx:id="algorithm" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton layoutX="44.0" layoutY="152.0" mnemonicParsing="false" onAction="#kruskalImplementationSelected" text="Randomized Kruskal's Algorithm" toggleGroup="$algorithm" />
-      <RadioButton layoutX="44.0" layoutY="206.0" mnemonicParsing="false" onAction="#primImplementationSelected" text="Randomized Prim's Algorithm" toggleGroup="$algorithm" />
-      <Label layoutX="451.0" layoutY="47.0" text="Background Color for maze:" />
-      <ColorPicker fx:id="colorPicker" layoutX="447.0" layoutY="85.0" prefHeight="37.0" prefWidth="194.0" />
-      <Label layoutX="432.0" layoutY="163.0" text="Number of rows:" />
-      <Label layoutX="579.0" layoutY="163.0" text="Number of columns:" />
-      <ChoiceBox fx:id="rows" layoutX="436.0" layoutY="201.0" prefHeight="31.0" prefWidth="111.0" />
-      <ChoiceBox fx:id="columns" layoutX="591.0" layoutY="201.0" prefHeight="31.0" prefWidth="111.0" />
-      <Button layoutX="467.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#ImportMaze" prefHeight="25.0" prefWidth="108.0" text="Import Maze " />
+      <RadioButton layoutX="26.0" layoutY="203.0" mnemonicParsing="false" onAction="#kruskalImplementationSelected" text="Randomized Kruskal's Algorithm" toggleGroup="$algorithm" />
+      <RadioButton layoutX="26.0" layoutY="257.0" mnemonicParsing="false" onAction="#primImplementationSelected" text="Randomized Prim's Algorithm" toggleGroup="$algorithm" />
+      <Label layoutX="367.0" layoutY="27.0" text="Background color for maze:" />
+      <ColorPicker fx:id="colorPicker" layoutX="367.0" layoutY="62.0" prefHeight="37.0" prefWidth="194.0" />
+      <Label layoutX="367.0" layoutY="132.0" text="Number of rows:" />
+      <Label layoutX="368.0" layoutY="221.0" text="Number of columns:" />
+      <ChoiceBox fx:id="rows" layoutX="367.0" layoutY="164.0" prefHeight="31.0" prefWidth="111.0" />
+      <ChoiceBox fx:id="columns" layoutX="367.0" layoutY="256.0" prefHeight="31.0" prefWidth="111.0" />
+      <Button layoutX="25.0" layoutY="391.0" mnemonicParsing="false" onMouseClicked="#importMazeMouseClick" prefHeight="49.0" prefWidth="545.0" text="Import Maze " />
+      <Label layoutX="27.0" layoutY="26.0" prefHeight="49.0" prefWidth="246.0" text="Configuration panel" />
+      <TextField fx:id="seed" layoutX="365.0" layoutY="336.0" />
+      <Label layoutX="365.0" layoutY="307.0" text="Choose a seed: (optional)" />
    </children>
 </Pane>

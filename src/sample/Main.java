@@ -21,7 +21,7 @@ public class Main extends Application {
         primaryStage.setTitle("Maze generator");
 
         Parent root = FXMLLoader.load(getClass().getResource("StartingWindow.fxml"));
-        Scene scene = new Scene(root, 792, 649);
+        Scene scene = new Scene(root, 567, 426);
         scene.getStylesheets().add(Main.class.getResource("style.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
